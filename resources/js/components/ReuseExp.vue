@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <div class="filters">
+      <div class="startingdate"><label for="">Starting Date</label><input id="start" type="date"></div>
+      <div class="endingdate"><label for="">Ending Date</label><input id="end" type="date"></div>
+      <button v-on:click="checkdate">Search</button>
+    </div>
     <table>
       <thead>
         <tr>
@@ -91,6 +96,16 @@ export default {
         
       });
       
+    },
+    checkdate(){
+      let start = document.getElementById("start")
+      let end = document.getElementById("end")
+      if (start.value !=="" && end.value !=="") {
+        
+        
+      }else{
+        alert("enter the required date")
+      }
     },
     rejectcomments(id){
       document.getElementById("rejected"+id).style.display="block";

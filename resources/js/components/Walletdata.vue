@@ -10,7 +10,7 @@
       </thead>
       <tbody>
         <tr v-for="val in totalexp" v-bind:key="val.expense_name">
-          <td>{{format_date(Date(val.created_at))}}</td>
+          <td>{{format(val.created_at)}}</td>
           <td>{{ val.username}}</td>
           <td>{{val.amount}}</td>
         </tr>
@@ -35,10 +35,10 @@ export default {
   methods: {
     
     
-    format_date(value) {
-      if (value) {
-        return moment(String(value)).format("MMMM Do YYYY");
-      }
+    format(value) {
+      let time= value.split("T")
+      time = time[0].split("-")
+      return `${time[2]} ${time[1]} ${time[0]} `
     },
     getTotalExp() {
       axios.get("/allwallets").then((res) => {

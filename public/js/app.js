@@ -5663,6 +5663,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
 var totalexp = _toConsumableArray(Array(150).keys()).map(function (i) {
   return {
     id: i + 1,
@@ -5717,6 +5722,14 @@ var totalexp = _toConsumableArray(Array(150).keys()).map(function (i) {
           _this2.getuserdata();
         });
       });
+    },
+    checkdate: function checkdate() {
+      var start = document.getElementById("start");
+      var end = document.getElementById("end");
+
+      if (start.value !== "" && end.value !== "") {} else {
+        alert("enter the required date");
+      }
     },
     rejectcomments: function rejectcomments(id) {
       document.getElementById("rejected" + id).style.display = "block";
@@ -5824,10 +5837,10 @@ __webpack_require__.r(__webpack_exports__);
     this.getTotalExp();
   },
   methods: {
-    format_date: function format_date(value) {
-      if (value) {
-        return moment__WEBPACK_IMPORTED_MODULE_0___default()(String(value)).format("MMMM Do YYYY");
-      }
+    format: function format(value) {
+      var time = value.split("T");
+      time = time[0].split("-");
+      return "".concat(time[2], " ").concat(time[1], " ").concat(time[0], " ");
     },
     getTotalExp: function getTotalExp() {
       var _this = this;
@@ -51205,8 +51218,16 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("table", [
+    _c("div", { staticClass: "filters" }, [
       _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c("button", { on: { click: _vm.checkdate } }, [_vm._v("Search")]),
+    ]),
+    _vm._v(" "),
+    _c("table", [
+      _vm._m(2),
       _vm._v(" "),
       _c(
         "tbody",
@@ -51331,6 +51352,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "startingdate" }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Starting Date")]),
+      _c("input", { attrs: { id: "start", type: "date" } }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "endingdate" }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Ending Date")]),
+      _c("input", { attrs: { id: "end", type: "date" } }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Date")]),
@@ -51380,7 +51419,7 @@ var render = function () {
         "tbody",
         _vm._l(_vm.totalexp, function (val) {
           return _c("tr", { key: val.expense_name }, [
-            _c("td", [_vm._v(_vm._s(_vm.format_date(Date(val.created_at))))]),
+            _c("td", [_vm._v(_vm._s(_vm.format(val.created_at)))]),
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(val.username))]),
             _vm._v(" "),
